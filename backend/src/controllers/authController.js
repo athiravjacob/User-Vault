@@ -3,18 +3,18 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 const signup = async (req, res) => {
-    const { name, email, password, profileImage ,role} = req.body
+    const { name, email, password } = req.body
+    console.log(req.body)
     try {
         const existingUser = await User.findOne({ email })
         if (existingUser) return res.status(400).json({ message: "User already exists" })
         
         const hashedPassword = await bcrypt.hash(password, 10)
         const newUser = await User.create({
-            profileImage,
             name,
             email,
             password: hashedPassword,
-            role: role||"user"
+            role: "user"
         })
 
         res.status(200).json({
@@ -23,9 +23,10 @@ const signup = async (req, res) => {
             name: newUser.name,
             email: newUser.email,
             role: newUser.role,
-            profileImage: newUser.profileImage,}})
+           }})
 
     } catch (error) {
+        console.log(error.message)
         res.status(500).json({message: "Error during signup" , error})
     }
     

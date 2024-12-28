@@ -3,13 +3,25 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import './index.css'
-import SignUp from './pages/SignUp'
+import Authentication from './pages/Authentication'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserProfilePage from './pages/UserProfile'
+import ProtectedRoutes from './components/ProtectedRoutes'
 function App() {
 
   return (
-    <>
-      <SignUp></SignUp>
-    </>
+  
+     <Router>
+      <Routes>
+        <Route path="/" element={<Authentication />} /> {/* Default Route */}
+        <Route
+          path='/user/profile'
+          element={
+            <ProtectedRoutes role="user">
+              <UserProfilePage />
+            </ProtectedRoutes>} />
+      </Routes>
+    </Router>
   )
 }
 

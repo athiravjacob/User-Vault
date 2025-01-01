@@ -1,8 +1,15 @@
 import { useState } from "react";
 import SignInForm from "../components/SignInForm";
 import SignUpForm from "../components/SignupForm";
-
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 const Authentication = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  if (isAuthenticated) {
+    return <Navigate to="/user/profile" replace/>
+
+  }
+
   const [isSignUp, setIssignup] = useState(false)
   const toggleForm = () => {
     console.log("signup", isSignUp )

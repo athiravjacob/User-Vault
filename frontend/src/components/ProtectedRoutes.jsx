@@ -11,7 +11,7 @@ const ProtectedRoutes = ({ children, role })=> {
     }
 
     if (role && user?.role !== role) {
-        return <Navigate to="/unauthorized" />;
+        return <Navigate to="/" />;
       }
     
       return children;

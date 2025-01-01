@@ -5,7 +5,7 @@ const authenticate = (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'No token provided. Authorization denied.' });
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        req.user = {id:decoded.id,role:decoded.role}
+        req.user = { id: decoded.id, role: decoded.role }
         next()
     } catch (error) {
         res.status(401).json({ message: 'Invalid token. Authorization denied.' });   
@@ -32,6 +32,8 @@ const isBlocked = async(req, res, next) => {
 
 const isAdmin = (req, res, next) => {
     const role = req.user.role
+    console.log("isAdmin middleware")
+
     if (role !== "admin") return res.status(403).json({ message: 'Access denied. Admins only.' });
     next()
 

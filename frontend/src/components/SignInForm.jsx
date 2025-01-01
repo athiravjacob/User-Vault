@@ -22,11 +22,15 @@ function SignInForm({ changeForm }) {
             const response = await postSignIn(values);
             const { token, user } = response.data
             console.log(response)
-            if (response.data.user) {
-              console.log("dispatch before login")
-              dispatch(login({ token, user }))
-              console.log("dispatch after login")
-              navigate("/user/profile")
+            if (user) {
+              if (user.role === 'user') {
+                dispatch(login({ token, user }))
+                navigate("/user/profile")
+              } else {
+                dispatch(login({ token, user }))
+                navigate("/admin/dashboard")
+             }
+              
               
             }
             

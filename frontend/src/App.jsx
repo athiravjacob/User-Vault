@@ -7,6 +7,8 @@ import Authentication from './pages/Authentication'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserProfilePage from './pages/UserProfile'
 import ProtectedRoutes from './components/ProtectedRoutes'
+import Dashboard from './pages/Dashboard'
+import UnauthorizedPage from './pages/Unauthorized'
 function App() {
 
   return (
@@ -19,6 +21,12 @@ function App() {
           element={
             <ProtectedRoutes role="user">
               <UserProfilePage />
+            </ProtectedRoutes>} />
+            <Route
+          path='/admin/dashboard'
+          element={
+            <ProtectedRoutes role="admin">
+              <Dashboard />
             </ProtectedRoutes>} />
       </Routes>
     </Router>

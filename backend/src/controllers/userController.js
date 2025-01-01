@@ -16,11 +16,13 @@ try {
 //Update User Details
 
 const updateUser = async (req, res) => {
-    const {name,profileImage} = req.body
+    const { name,email,dob,phoneNumber,profileImage,role,id,gender} = req.body
+    console.log("update user backend")
     try {
         const updatedUser = await User.findByIdAndUpdate(req.user.id, {
-            name,profileImage
-        },{new:true})
+            name,email,dob,phoneNumber,profileImage,role,id,gender
+        }, { new: true })
+        console.log(updatedUser)
         if(updateUser) res.status(200).json(updatedUser)
     } catch (error) {
         res.status(500).json({message:error.message})

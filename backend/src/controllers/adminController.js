@@ -2,9 +2,10 @@ const User = require('../models/user')
 
 const dashboard = async (req, res) => {
     try {
-        const users =  await User.find({},-password)      
+        console.log("backende getuserfunct")
+        const users = await User.find({}, { password: 0 });
         if (!users) return res.status(400).json({ message: "No users found" }) 
-        
+        console.log(users,"dashboard userlist")
         res.status(200).json(users)
     } catch (error) {
         res.status(500).json({message:"Error getting the users",error})

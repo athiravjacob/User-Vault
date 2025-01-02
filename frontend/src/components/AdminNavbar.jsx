@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../redux/slices/authSlice";
+import { search } from '../api/admin';
+import { useNavigate } from 'react-router-dom';
 
 const AdminNavbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dispatch= useDispatch()
+  const admin = useSelector((state) => state.auth.user)
+  const token = useSelector((state)=>state.auth.token)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const handleSearch = (e) => {
+  const handleSearch = async(e) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
-    // Implement your search logic here
+    navigate(`?search=${searchQuery}`)
   };
 
   const toggleDropdown = () => {
@@ -23,7 +27,7 @@ const AdminNavbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <span className="text-2xl font-bold text-gray-800 dark:text-white">User Vault</span>
+              <span onClick={()=>navigate("/admin/dashboard")}  className="text-2xl font-bold text-gray-800 dark:text-white">User Vault</span>
             </div>
           </div>
           <div className="flex-1 flex justify-center px-2 lg:ml-6 lg:justify-end">
@@ -59,8 +63,8 @@ const AdminNavbar = () => {
                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                   <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                     <div className="px-4 py-2 text-sm text-gray-700">
-                      <p className="font-medium">Admin User</p>
-                      <p className="text-xs text-gray-500">admin@example.com</p>
+                      <p className="font-medium">{admin.name}</p>
+                      <p className="text-xs text-gray-500">{admin.email }</p>
                     </div>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
                     <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={()=>dispatch(logout())}>Log out</span>

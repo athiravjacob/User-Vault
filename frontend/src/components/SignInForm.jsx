@@ -20,8 +20,8 @@ function SignInForm({ changeForm }) {
         onSubmit: async (values) => {
           try {
             const response = await postSignIn(values);
+            
             const { token, user } = response.data
-            console.log(response)
             if (user) {
               if (user.role === 'user') {
                 dispatch(login({ token, user }))

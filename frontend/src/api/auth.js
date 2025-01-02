@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axios'
 import toast from 'react-hot-toast'
 
 const API_URL = "http://localhost:3000/auth"
@@ -18,9 +18,11 @@ export const postSignIn = async (data) => {
     console.log(data)
     try {
         const response = await axios.post(`${API_URL}/signin`, data)
+        console.log(response,"front response")
         return response
     } catch (error) {
-        toast.error(error.message|| 'Signup failed');
+        console.log(error.response.data.message)
+        toast.error(error.response.data.message|| 'Signup failed');
     }
 }
 

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axios'
 import toast from 'react-hot-toast'
 
 const API_URL = "http://localhost:3000/user"
@@ -6,15 +6,16 @@ const API_URL = "http://localhost:3000/user"
 
 export const getProfile = async (id,token) => {
     try {
-        const response = await axios.get(`${API_URL}/profile`, {
+        console.log("hello from get profile frontend")
+        const response = await axios.get(`${API_URL}/profile/${id}`, {
             headers: {
-                Authorization: `Bearer ${token}`, // Attach token in Authorization header
+                Authorization: `Bearer ${token}`, 
             },
         })
         console.log(response,"getprofile")
         return response.data
     } catch (error) {
-        toast.error(error.message|| 'error updating profile');
+        console.log(error)
 
     }
     

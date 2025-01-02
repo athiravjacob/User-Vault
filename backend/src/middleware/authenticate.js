@@ -16,14 +16,15 @@ const authenticate = (req, res, next) => {
 const isBlocked = async(req, res, next) => {
     try {
         const { id } = req.user
-        const user = await User.findById(id,"block")
+        const user = await User.findById(id)
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
           }
       
           if (user.block) {
             return res.status(403).json({ message: 'Access denied. You are blocked by the admin.' });
-          }
+        }
+        next()
     } catch (error) {
         res.status(500).json({ message: 'Error checking block status.', error });
 
@@ -32,7 +33,6 @@ const isBlocked = async(req, res, next) => {
 
 const isAdmin = (req, res, next) => {
     const role = req.user.role
-    console.log("isAdmin middleware")
 
     if (role !== "admin") return res.status(403).json({ message: 'Access denied. Admins only.' });
     next()

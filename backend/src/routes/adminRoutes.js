@@ -7,7 +7,8 @@ router.use(authenticate)
 router.use(isAdmin);
 
 router.get("/getUsers", adminController.dashboard)
-router.patch("/editUser/:id", adminController.editUser)
+router.post("/editUser/:id", adminController.editUser)
 router.patch("/toggleBlock/:id", adminController.blockUser)
+router.get("/search",adminController.search)
 
 module.exports = router

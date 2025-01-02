@@ -2,10 +2,10 @@ const User = require('../models/user')
 
 //Get details of the user
 const getProfile = async (req, res) => {
-try {
-    const userDetails = await User.findById(req.user.id) 
+    try {
+    const userDetails = await User.findById(req.params.id) 
     if (!userDetails) return res.status(400).json({ message: "No user details" })
-    
+    console.log("getprofile working perfect")
     res.status(200).json(userDetails)
 } catch (error) {
     res.status(500).json({ message: 'Error fetching profile', error });
@@ -22,7 +22,7 @@ const updateUser = async (req, res) => {
         const updatedUser = await User.findByIdAndUpdate(req.user.id, {
             name,email,dob,phoneNumber,profileImage,role,id,gender
         }, { new: true })
-        console.log(updatedUser)
+        console.log(updatedUser) 
         if(updateUser) res.status(200).json(updatedUser)
     } catch (error) {
         res.status(500).json({message:error.message})

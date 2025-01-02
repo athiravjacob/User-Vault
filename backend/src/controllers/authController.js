@@ -39,7 +39,7 @@ const signin =async(req, res) => {
         const user = await User.findOne({ email })
         const isMatch = await bcrypt.compare(password,user.password)
         if (!user || !isMatch) return res.status(400).json({ message: "Invalid credentials" })
-        
+        if(user.block) return res.status(400).json({message:"You are blocked by admin"})
         const token = await jwt.sign(
             { id: user._id, role: user.role },
             process.env.JWT_SECRET,

@@ -22,13 +22,17 @@ function App() {
             <ProtectedRoutes role="user">
               <UserProfilePage />
             </ProtectedRoutes>} />
-            <Route
-          path='/admin/dashboard'
+          <Route
+          path='/admin/dashboard/*'
           element={
             <ProtectedRoutes role="admin">
               <Dashboard />
             </ProtectedRoutes>} />
+        
+        
+
       </Routes>
+
     </Router>
   )
 }

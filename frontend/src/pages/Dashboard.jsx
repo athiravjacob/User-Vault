@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import AdminNavbar from '../components/AdminNavbar'
 import UserList from '../components/UserList'
 import UserDetails from '../components/UserDetails'
+import AddUser from '../components/AddUser'
 import {Route,Routes} from 'react-router-dom'
 function Dashboard() {
 
@@ -12,7 +13,7 @@ function Dashboard() {
               <Routes>
                 <Route path="/" element={<UserList />} />
                 <Route path="edit/:id" element={<UserDetails />} />
-                <Route path="search"  />
+                <Route path="addUser" element={<AddUser />}  />
 
                 
               </Routes>

@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const bcrypt = require('bcryptjs');
 
 const dashboard = async (req, res) => {
     try {
@@ -69,9 +70,42 @@ const search = async (req, res) => {
     }
 }
 
+const createUser = async (req, res) => {
+    const {name,email,dob,phoneNumber,profileImage,password,gender } = req.body
+    console.log(req.body)
+    console.log("hello fom crreate user");
+    try {
+        const existingUser = await User.findOne({ email })
+        if (existingUser) return res.status(400).json({ message: "User already exists" })
+        
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const newUser = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            role: "user",
+            gender,
+            profileImage,
+            phoneNumber,dob
+        })
+
+        if (newUser) {
+            res.status(200).json({
+                message: "new user added"
+            })
+        }
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({message: "Error creating new user" , error})
+    }
+    
+}
+
+
 module.exports = {
     dashboard,
     editUser,
     blockUser,
-    search
+    search,
+    createUser
 }

@@ -8,6 +8,7 @@ router.use(isAdmin);
 
 router.get("/getUsers", adminController.dashboard)
 router.post("/editUser/:id", adminController.editUser)
+router.post("/createUser",adminController.createUser)
 router.patch("/toggleBlock/:id", adminController.blockUser)
 router.get("/search",adminController.search)
 

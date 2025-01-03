@@ -17,6 +17,10 @@ const AdminNavbar = () => {
     navigate(`?search=${searchQuery}`)
   };
 
+  const addUser = () => {
+    navigate(`/admin/dashboard/addUser`)
+  }
+
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -66,7 +70,7 @@ const AdminNavbar = () => {
                       <p className="font-medium">{admin.name}</p>
                       <p className="text-xs text-gray-500">{admin.email }</p>
                     </div>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Profile</a>
+                    <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={addUser}>Add User</span>
                     <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" onClick={()=>dispatch(logout())}>Log out</span>
                   </div>
                 </div>
